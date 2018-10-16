@@ -23,6 +23,7 @@ type Props = {
   progress: number,
   duration: number,
   playerState: PlayerState,
+  enableFullscreen: boolean,
   onFullScreen: Function,
   onPaused: Function,
   onReplay: Function,
@@ -40,6 +41,7 @@ class MediaControls extends Component<Props, State> {
     isFullScreen: false,
     isLoading: false,
     mainColor: 'rgba(12, 83, 175, 0.9)',
+    enableFullscreen: true,
     onFullScreen: noop,
     onReplay: noop,
     onSeeking: noop,
@@ -180,6 +182,7 @@ class MediaControls extends Component<Props, State> {
       playerState,
       progress,
       toolbar,
+      enableFullscreen,
     } = this.props;
 
     // this let us block the controls
@@ -216,12 +219,15 @@ class MediaControls extends Component<Props, State> {
               minimumTrackTintColor={mainColor}
             />
           </View>
-          <TouchableOpacity
-            style={styles.fullScreenContainer}
-            onPress={onFullScreen}
-          >
-            <Image source={fullScreenImage} />
-          </TouchableOpacity>
+
+          { enableFullscreen && (
+            <TouchableOpacity
+              style={styles.fullScreenContainer}
+              onPress={onFullScreen}
+            >
+              <Image source={fullScreenImage} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     );
